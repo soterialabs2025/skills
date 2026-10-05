@@ -1,0 +1,5 @@
+# Bankr installer: CRLF breaks SKILL.md frontmatter.
+* text=auto eol=lf
+*.svg text eol=lf
+*.json text eol=lf
+*.md text eol=lf

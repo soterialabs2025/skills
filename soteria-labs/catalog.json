@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "slug": "soteria-labs",
+  "provider": "Soteria Labs",
+  "providerUrl": "https://www.soterialabs.io",
+  "logo": "logo.svg",
+  "demo": {
+    "title": "soteria-labs.sh",
+    "language": "bash",
+    "code": "# Coffer (Robinhood) - several vaults, one share per vault\nbankr prompt \"Using the soteria-labs skill, which Coffer vaults are live?\"\nbankr prompt \"Using the soteria-labs skill, what is the value of Coffer vault 8 and what pairs are in it?\"\nbankr prompt \"Using the soteria-labs skill, deposit 0.05 ETH into Coffer vault 8\"\nbankr prompt \"Using the soteria-labs skill, withdraw 50% of my shares from Coffer vault 8\"\n\n# AutoVault (Base + Robinhood) - name alone resolves chain and package\nbankr prompt \"Using the soteria-labs skill, what AutoVaults are available?\"\nbankr prompt \"Using the soteria-labs skill, what is the APR of surplus?\"\nbankr prompt \"Using the soteria-labs skill, deposit 0.01 ETH into bnkr\"\nbankr prompt \"Using the soteria-labs skill, withdraw all my cashcat liquid shares as WETH\"\n\n# UFloat (Base) - your own Uniswap v4 strategy\nbankr prompt \"Using the soteria-labs skill, deploy a UFloat strategy with tokens 0x... and 0x...\"\nbankr prompt \"Using the soteria-labs skill, what is my UFloat strategy 0x... worth, and which mode is it in?\"\nbankr prompt \"Using the soteria-labs skill, withdraw 0.2 WETH from my UFloat strategy 0x...\""
+  },
+  "setup": [
+    "Chains: Base (8453) and Robinhood (4663). The skill picks the chain from the product or vault name; confirm the Bankr wallet supports both",
+    "Fund the wallet with ETH on the relevant chain for deposits and gas",
+    "All contract addresses are loaded live from https://www.soterialabs.io/api/skill-config and verified on-chain before any transaction; nothing is hardcoded, so the skill keeps working when contracts rotate",
+    "Coffer: deposit ETH into one of several multi-strategy vaults; withdrawing burns liquid shares, takes a withdrawal fee (read live) and pays WETH, or WETH plus in-kind USDG / pair tokens if an exit price floor is refused",
+    "AutoVault: one vault per token (surplus, bnkr, cashcat, ...); withdraw pays WETH, native ETH on Robinhood V4, or the vault token; APR from the site's snapshot API",
+    "UFloat: deploy and manage your own Uniswap v4 strategy on Base - ETH in, WETH out, owner-only allowlist, rotation and mint parameters",
+    "Before any transaction the skill previews amount, gas, fees and estimated output, simulates the exact call and asks for explicit authorization; no entrypoint accepts a min-output or deadline, so it stops if you require one",
+    "Results are reported from the mined receipt's events and token transfers, never from return values",
+    "Read-only otherwise: vault value, shares, fees, APR, live pairs, strategy params. No approvals, keeper or admin calls",
+    "Supersedes the standalone coffer skill"
+  ],
+  "install": {
+    "type": "bankr",
+    "repoPath": "soteria-labs",
+    "command": "install the soteria-labs skill from https://github.com/soterialabs2025/skills/tree/soteria-labs/soteria-labs"
+  }
+}
